@@ -1,0 +1,432 @@
+/* =========================================================
+   style.css – Aussehen der Seite.
+   Die Texte stehen in index.html.
+   ========================================================= */
+
+/* ---------- 1. FARBEN UND SCHRIFTEN (leicht anpassbar) ---------- */
+:root {
+  --hintergrund: #F3EEE7;   /* Beige, Seitenhintergrund */
+  --band: #E9E3D9;          /* etwas dunkleres Beige für jeden zweiten Abschnitt */
+  --flaeche: #FBF9F5;       /* Karten */
+  --text: #24282F;          /* normale Schrift */
+  --text-hell: #67645E;     /* graue Zusatztexte */
+  --linie: #DCD4C8;         /* Trennlinien */
+  --dunkelblau: #1E2F4D;    /* Buttons, Kontakt-Kasten */
+  --dunkelblau-hover: #2B4169;
+  --akzent: #3C5F95;        /* Links, Nummern, Zeitleiste */
+  --akzent-hell: #DCE3EE;   /* hellblaue Flächen */
+  --zahlen: #1E2F4D;        /* große Zahlen unter dem Einstieg */
+  --schatten: 0 1px 2px rgba(45, 38, 28, .05), 0 12px 32px rgba(45, 38, 28, .08);
+
+  --schrift-titel: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --schrift-text: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  color-scheme: light;
+}
+
+/* Dunkelmodus: wird automatisch genutzt, wenn das Gerät dunkel eingestellt ist */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hintergrund: #16191F;
+    --band: #1B1F26;
+    --flaeche: #21262E;
+    --text: #ECE7DF;
+    --text-hell: #A8A298;
+    --linie: #31363F;
+    --dunkelblau: #2A4270;
+    --dunkelblau-hover: #34508A;
+    --akzent: #9DB6DE;
+    --akzent-hell: #263450;
+    --zahlen: #C9D6EC;
+    --schatten: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+
+/* ---------- 2. GRUNDEINSTELLUNGEN ---------- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+
+body {
+  margin: 0;
+  background: var(--hintergrund);
+  color: var(--text);
+  font-family: var(--schrift-text);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--akzent); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--akzent); outline-offset: 3px; border-radius: 4px; }
+
+p { margin: 0 0 1rem; }
+img { max-width: 100%; display: block; }
+
+/* Begrenzt die Breite der Seite und hält sie mittig */
+.rahmen { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- 3. NAVIGATION (oben, bleibt beim Scrollen stehen) ---------- */
+.leiste {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--hintergrund) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linie);
+}
+.leiste .rahmen { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1rem; }
+
+.marke {
+  font-family: var(--schrift-titel);
+  font-size: 1.2rem; font-weight: 600;
+  color: var(--text); text-decoration: none;
+}
+
+.menue { list-style: none; display: flex; align-items: center; gap: 1.75rem; margin: 0; padding: 0; }
+.menue a { color: var(--text-hell); text-decoration: none; font-size: .95rem; font-weight: 500; }
+.menue a:hover { color: var(--text); }
+.menue .menue-button {
+  color: #fff; background: var(--dunkelblau);
+  padding: .45rem 1rem; border-radius: 999px;
+}
+.menue .menue-button:hover { color: #fff; background: var(--dunkelblau-hover); }
+
+/* ---------- 4. EINSTIEG (ganz oben) ---------- */
+.einstieg {
+  padding: 4.5rem 0 3.5rem;
+  background: radial-gradient(900px 520px at 88% 10%, var(--akzent-hell), transparent 70%);
+}
+
+.einstieg-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.einstieg-text > * { animation: einblenden .7s ease both; }
+.einstieg-text > :nth-child(2) { animation-delay: .08s; }
+.einstieg-text > :nth-child(3) { animation-delay: .16s; }
+.einstieg-text > :nth-child(4) { animation-delay: .24s; }
+.einstieg-text > :nth-child(5) { animation-delay: .32s; }
+
+@keyframes einblenden {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Kleines Schild "Suche ein Praktikum" */
+.hinweis {
+  display: inline-flex; align-items: center; gap: .55rem;
+  margin: 0 0 1.5rem;
+  padding: .35rem .9rem;
+  font-size: .9rem; font-weight: 600;
+  color: var(--akzent);
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: 999px;
+}
+.punkt { width: 8px; height: 8px; border-radius: 50%; background: var(--akzent); }
+
+.name {
+  margin: 0 0 1rem;
+  font-size: .85rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-hell);
+}
+
+h1 {
+  font-family: var(--schrift-titel);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5.2vw, 3.8rem);   /* wird auf dem Handy kleiner */
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.5rem;
+}
+h1 em { font-style: italic; color: var(--akzent); }
+
+.einleitung { font-size: 1.15rem; color: var(--text-hell); max-width: 34em; margin-bottom: 2rem; }
+
+.knoepfe { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+.button {
+  display: inline-block;
+  background: var(--dunkelblau);
+  color: #fff;
+  padding: .8rem 1.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--dunkelblau);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background .15s ease, transform .15s ease;
+}
+.button:hover { background: var(--dunkelblau-hover); border-color: var(--dunkelblau-hover); transform: translateY(-1px); }
+
+.button-hell { background: transparent; color: var(--text); border-color: var(--linie); }
+.button-hell:hover { background: var(--flaeche); border-color: var(--text-hell); }
+
+/* Foto im Bogenrahmen */
+.foto {
+  position: relative;
+  isolation: isolate;
+  justify-self: end;
+  width: 100%;
+  max-width: 360px;
+  margin: 0;
+}
+.foto img,
+.foto::before,
+.foto::after {
+  border-radius: 50% 50% 24px 24px / 35.7% 35.7% 24px 24px;
+}
+.foto img {
+  position: relative;
+  width: 100%; height: auto;
+  aspect-ratio: 591 / 827;
+  object-fit: cover;
+  box-shadow: var(--schatten);
+}
+/* dünne blaue Linie, leicht versetzt */
+.foto::before {
+  content: ""; position: absolute; inset: -14px 14px 14px -14px;
+  border: 1.5px solid var(--akzent);
+  z-index: 1; pointer-events: none;
+}
+/* beige Fläche dahinter */
+.foto::after {
+  content: ""; position: absolute; inset: 22px -22px -22px 22px;
+  background: var(--band);
+  z-index: -1;
+}
+
+/* Leiste mit drei Zahlen unter dem Einstieg */
+.kurz {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: 4rem 0 0; padding: 0;
+  border-top: 1px solid var(--linie);
+}
+.kurz li { padding: 1.4rem 1.5rem 0 0; }
+.kurz li + li { padding-left: 1.5rem; border-left: 1px solid var(--linie); }
+.kurz b {
+  display: block;
+  font-family: var(--schrift-titel);
+  font-size: 1.9rem; font-weight: 600; line-height: 1.15;
+  color: var(--zahlen);
+}
+.kurz span { color: var(--text-hell); font-size: .95rem; }
+
+/* ---------- 5. ABSCHNITTE (Überschrift links, Inhalt rechts) ---------- */
+.abschnitt { padding: 5rem 0; }
+.abschnitt-band { background: var(--band); }
+
+.abschnitt-raster {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 3.5rem;
+}
+.abschnitt-kopf { position: sticky; top: 96px; align-self: start; }
+
+.kicker {
+  display: flex; align-items: center; gap: .6rem;
+  margin: 0 0 .6rem;
+  font-size: .8rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--akzent);
+}
+.kicker::before { content: ""; width: 22px; height: 1.5px; background: currentColor; }
+
+h2 {
+  font-family: var(--schrift-titel);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+h3 { font-size: 1.1rem; line-height: 1.35; margin: 0; }
+
+.vorwort { font-size: 1.15rem; max-width: 40em; margin-bottom: 2rem; }
+
+/* ---------- 6. EIGENSCHAFTEN (vier Karten) ---------- */
+.eigenschaften {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
+}
+.eigenschaften li {
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem 1.4rem;
+  box-shadow: var(--schatten);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.eigenschaften li:hover { transform: translateY(-3px); border-color: var(--akzent); }
+.eigenschaften .nr {
+  display: block;
+  font-family: var(--schrift-titel);
+  font-style: italic; font-size: 1.4rem;
+  color: var(--akzent);
+  margin-bottom: .5rem;
+}
+.eigenschaften strong { display: block; font-size: 1.1rem; margin-bottom: .3rem; }
+.eigenschaften li > span:last-child { color: var(--text-hell); }
+
+/* ---------- 7. WAS ICH KANN (Liste mit Haken) ---------- */
+.koennen { list-style: none; margin: 0; padding: 0; }
+.koennen li {
+  position: relative;
+  padding: 1.1rem 0 1.1rem 3rem;
+  border-top: 1px solid var(--linie);
+}
+.koennen li:last-child { border-bottom: 1px solid var(--linie); }
+/* runder Kreis */
+.koennen li::before {
+  content: ""; position: absolute; left: 0; top: 1.15rem;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--dunkelblau);
+}
+/* Haken im Kreis */
+.koennen li::after {
+  content: ""; position: absolute; left: 11px; top: calc(1.15rem + 8px);
+  width: 7px; height: 12px;
+  border: solid #fff; border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.koennen strong { display: block; font-size: 1.05rem; }
+.koennen span { color: var(--text-hell); }
+
+/* ---------- 8. ZEITLEISTE (Werdegang) ---------- */
+.zeitleiste { list-style: none; margin: 0; padding: 0; position: relative; }
+.zeitleiste::before {
+  content: ""; position: absolute; left: 170px; top: .5rem; bottom: .5rem;
+  width: 2px; background: var(--linie);
+}
+.zeitleiste > li {
+  display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 0 2.5rem;
+  position: relative; padding-bottom: 2.5rem;
+}
+.zeitleiste > li:last-child { padding-bottom: 0; }
+
+/* Der Punkt an der Linie */
+.zeitleiste > li::before {
+  content: ""; position: absolute; left: 164px; top: .4rem;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--hintergrund);
+  border: 2.5px solid var(--akzent);
+}
+.zeitleiste > li.aktuell::before { background: var(--akzent); box-shadow: 0 0 0 5px var(--akzent-hell); }   /* gefüllter Punkt = jetzt */
+
+.zeit {
+  font-family: var(--schrift-titel);
+  color: var(--text-hell);
+  text-align: right; padding-right: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.ort { color: var(--text-hell); margin: .15rem 0 .6rem; }
+.zeitleiste ul { margin: .5rem 0 0; padding-left: 1.1rem; }
+.zeitleiste ul li { margin: .2rem 0; }
+.zeitleiste ul li::marker { color: var(--akzent); }
+
+.schild {
+  display: inline-block; vertical-align: 2px;
+  margin-left: .4rem; padding: .1rem .55rem;
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--akzent); background: var(--akzent-hell);
+  border-radius: 6px;
+}
+
+/* ---------- 9. TABELLE „WEITERES" ---------- */
+.daten {
+  margin: 0;
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: 18px;
+  padding: .5rem 1.75rem;
+  box-shadow: var(--schatten);
+}
+.daten div {
+  display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 1rem;
+  padding: 1rem 0;
+}
+.daten div + div { border-top: 1px solid var(--linie); }
+.daten dt { color: var(--text-hell); font-weight: 600; }
+.daten dd { margin: 0; }
+
+/* ---------- 10. KONTAKT ---------- */
+.kontakt { padding: 5rem 0; }
+.kontakt-box {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2rem; align-items: center;
+  background: var(--dunkelblau);
+  color: #fff;
+  border-radius: 28px;
+  padding: 3.25rem 3rem;
+  box-shadow: var(--schatten);
+}
+.kontakt-box .kicker { color: #C9D6EC; }
+.kontakt-box h2 { color: #fff; }
+.kontakt-aktion { justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: .75rem; }
+.button-weiss { background: #F3EEE7; color: #1E2F4D; border-color: #F3EEE7; }
+.button-weiss:hover { background: #fff; border-color: #fff; }
+.kontakt-mail { color: rgba(255, 255, 255, .85); }
+.kontakt-mail:hover { color: #fff; }
+
+/* ---------- 11. FUSSZEILE ---------- */
+.fuss { padding: 0 0 2.5rem; color: var(--text-hell); font-size: .9rem; }
+.fuss .rahmen { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.fuss a { color: var(--text-hell); }
+
+/* ---------- 12. WENIGER BEWEGUNG (wenn am Gerät so eingestellt) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .einstieg-text > * { animation: none; }
+  .button, .eigenschaften li { transition: none; }
+}
+
+/* ---------- 13. TABLET UND HANDY ---------- */
+@media (max-width: 860px) {
+  .menue li:not(:last-child) { display: none; }   /* auf dem Handy nur der Kontakt-Button */
+
+  .einstieg { padding: 2.5rem 0 2.5rem; }
+  .einstieg-raster { grid-template-columns: 1fr; gap: 2.75rem; }
+  .foto { order: -1; justify-self: start; max-width: 230px; margin-left: 14px; }
+
+  .kurz { grid-template-columns: 1fr; margin-top: 2.5rem; }
+  .kurz li, .kurz li + li { padding: 1rem 0; border-left: 0; }
+  .kurz li + li { border-top: 1px solid var(--linie); }
+
+  .abschnitt, .kontakt { padding: 3.5rem 0; }
+  .abschnitt-raster { grid-template-columns: 1fr; gap: 1.5rem; }
+  .abschnitt-kopf { position: static; }
+
+  .eigenschaften { grid-template-columns: 1fr; }
+
+  .kontakt-box { grid-template-columns: 1fr; padding: 2.25rem 1.75rem; }
+  .kontakt-aktion { justify-self: start; align-items: flex-start; }
+}
+
+@media (max-width: 600px) {
+  body { font-size: 1rem; }
+  .rahmen { padding: 0 1rem; }
+  .marke { font-size: 1.05rem; }
+
+  .zeitleiste::before { left: 6px; }
+  .zeitleiste > li { grid-template-columns: 1fr; padding-left: 2rem; }
+  .zeitleiste > li::before { left: 0; }
+  .zeit { text-align: left; padding: 0 0 .2rem; }
+
+  .daten { padding: .25rem 1.25rem; }
+  .daten div { grid-template-columns: 1fr; gap: .1rem; }
+}
+
+/* ---------- 14. DRUCKEN ---------- */
+@media print {
+  .leiste, .knoepfe, .kontakt-aktion .button { display: none; }
+  body, .abschnitt-band, .einstieg { background: #fff; color: #000; }
+  .abschnitt-kopf { position: static; }
+  .eigenschaften li, .daten, .foto img { box-shadow: none; }
+  .kontakt-box { background: none; color: #000; border: 1px solid #ccc; }
+  .kontakt-box h2, .kontakt-mail { color: #000; }
+  .zeitleiste > li, .eigenschaften li { break-inside: avoid; }
+}
